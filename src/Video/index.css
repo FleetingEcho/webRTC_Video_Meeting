@@ -1,0 +1,114 @@
+.flex-container {
+  height: calc(100% - 150px);
+  width: 97%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-send-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#main > video {
+  /* transform: rotateY(180deg); */
+  /* height:60vh; */
+  /* -webkit-transform: scaleX(-1); */
+  /* transform: scaleX(-1); */
+
+  /* border-style: solid; */
+  /* border-color: rgb(226, 222, 222); */
+  border-radius: 26px;
+  border: 1px solid  rgb(226, 222, 222);
+}
+#main > video:focus {
+  outline:none
+}
+
+/* 观看的当前时间 */
+#main > video::-webkit-media-controls-current-time-display{
+    display: none;            
+}
+
+/* 进度条 */
+#main >video::-webkit-media-controls-timeline {
+    display: none;
+}
+
+
+/* 音量按钮 */
+#main >video::-webkit-media-controls-mute-button {
+    display: none;            
+}
+/* 播放按钮 */
+#main >video::-webkit-media-controls-play-button {
+    display: none;
+}
+.initialVideo::-webkit-media-controls-play-button {
+  display: none;
+}
+.initialVideo::-webkit-media-controls-current-time-display{
+  display: none;            
+}
+.initialVideo::-webkit-media-controls-timeline {
+  display: none;
+}
+.initialVideo:focus{
+  outline:none
+}
+.initialVideo::-webkit-media-controls-play-button {
+  display: none;
+}
+.initialVideo {
+  /* transform: rotateY(180deg); */
+}
+#my-video:focus{
+  outline:none
+  /* transform: rotateY(180deg); */
+}
+/* .messageCss{
+  z-index: 9999;
+} */
+
+::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+  background: hsla(0, 0%, 100%, 0.6);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: rgba(95,95,95,.4);
+  transition: all .2s;
+  border-radius: .5rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(95,95,95, .7);
+  }
+
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }

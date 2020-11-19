@@ -17,11 +17,11 @@ import {ShakeOutlined } from '@ant-design/icons';
 import {changeCssVideos, checkMessage,getBase64,scrollToBottom,toggleVideoSize} from '../lib/utils'
 import {MessageBox,MessageBoxLeft,UserContainer,Sender,
 			  SenderLeft,
-	      VideoBox,IconList,MessageContainer,GlobalStyle,ImageBox,ImageBoxLeft} from './style';
+	      VideoBox,IconList,MessageContainer,GlobalStyle,ImageBox,BrowserError,ImageBoxLeft} from './style';
 import chatWallPaper from './icon/chatWallPaper.jpg'
 import { message,Button as ButtonAnt,Image,Input,Upload } from 'antd'
 import 'antd/dist/antd.css'
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined ,GithubOutlined} from '@ant-design/icons';
 import {withRouter } from 'react-router';
 import { Row } from 'reactstrap'
 import Modal from 'react-bootstrap/Modal'
@@ -636,10 +636,20 @@ let _fileName=file.name.substr(index+1);
 	render() {
 		if(this.isChrome() === false){
 			return (
-				<div style={{background: "white", width: "92%", height: "auto", padding: "20px",
-						textAlign: "center", margin: "auto", marginTop: "50px", justifyContent: "center"}}>
-					<h1>Sorry, this works only with Google Chrome</h1>
+			
+				<Fragment>
+				<GlobalStyle></GlobalStyle>
+				<div style={{width: "100%", height:'30%', paddingTop: "20vh", padding:'auto',textAlign: "center", justifyContent: "center"}}>
+					<h2 style={{color:'white'}}>Sorry, currently only supports Chrome Browser </h2>
+					<h5 style={{lineHeight:'30px',marginTop:'60px'}}>
+						<span style={{verticalAlign:'middle'}}>
+					<span style={{display:'inline-block',height:'30px',marginRight:'10px'}}>	
+						<GithubOutlined style={{verticalAlign:'middle'}}/> 
+					</span>
+					<a href="https://github.com/JakeZT">Other repo in my Github</a></span>
+					</h5>
 				</div>
+			</Fragment>
 			)
 		}
 		return (

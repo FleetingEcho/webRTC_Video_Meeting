@@ -103,6 +103,32 @@ textAlign: right;
     transform: rotate(45deg);
     }
 `;
+
+
+
+export const BrowserError=styled.div`
+  background:url(${img}) repeat-Y center center;
+  overflow: hidden;
+${'' /* position: fixed; */}
+text-align:center;
+  width:100%;
+  height:100%;
+  display: flex;
+  align-items: center; /*垂直居中*/
+  justify-content: center; /*水平居中*/
+  /* 背景图垂直、水平均居中 */
+	background-position: center;
+	/* 背景图不平铺 */
+	background-repeat: repeat-Y;
+	/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+	background-attachment: fixed;
+	/* 让背景图基于容器大小伸缩 */
+	background-size: cover;
+	/* 设置背景颜色，背景图加载过程中会显示背景色 */
+	background-color: #464646;
+
+`;
+
 export const ImageBox = styled.div`
 float:right;
 margin-right:2%;

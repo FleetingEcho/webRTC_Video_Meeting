@@ -8,9 +8,10 @@ const path = require("path")
 const xss = require("xss")
 const helmet = require('helmet');
 const server = http.createServer(app)
-const io = require('socket.io')(server,{  path: 'myscoket'})
+const io = require('socket.io')(server,{  path: '/myscoket'})
 const indexRouter=require('./router')
-const {connectedRooms,enterRoom,leaveRoom}= require('./db')
+// const Connections= require('./db')
+const {connector}=require('./db')
 // 解决跨域问题， 但如果带cookie就得另外配置
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
@@ -123,9 +124,10 @@ io.on('connection', (socket) => {
 			
 					var index = connections[key].indexOf(socket.id)
 					connections[key].splice(index, 1)
-
 					console.log(logSymbols.info,key, socket.id, Math.ceil(diffTime / 1000))
-
+					// important;
+					connector.leaveRoom(key);
+					// io.emit('userLeave', {customEvent: key})
 					if(connections[key].length === 0){
 						delete connections[key]
 					}

@@ -17,19 +17,17 @@ const STATUS={
 }
 */
 
-module.exports=class Connections{
+class Connections{
   constructor(){
     this.connectedRooms={};
   }
   // 增加
   _access=(id,password)=>{
-    // console.log('进入')
     let info=this.connectedRooms[`room${id}`];
     // password right
     if(info['id']===id && info['password']===password){
       // access
       if(info.linkedUsers>=4){
-        // console.log(info.linkedUsers)
         return STATUS.FULL;
       }
         return this._goInRoom(id,password);
@@ -56,8 +54,8 @@ module.exports=class Connections{
   }
   }
   
-  leaveRoom=(id,password)=>{
-    if(!id  || !password)return ;
+  leaveRoom=(id)=>{
+    if(!id )return ;
     if(! this.connectedRooms[`room${id}`]){
       return STATUS.ROOM_NOT_EXIST ;
     }
@@ -69,7 +67,6 @@ module.exports=class Connections{
     }
     else{
         info['linkedUsers']-=1;
-        // console.log(this.connectedRooms)
        return STATUS.LEAVE;
       }
   }
@@ -99,3 +96,6 @@ module.exports=class Connections{
     return STATUS.UPDATE
   }
 }
+
+
+exports.connector= new Connections();

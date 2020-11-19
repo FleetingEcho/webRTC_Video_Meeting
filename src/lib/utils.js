@@ -15,10 +15,14 @@
   } else if (elms === 2) {
     width = "45%"
     height=maxHeight
-  } else if (elms === 3 || elms === 4) {
-    width = "35%"
+  } else if (elms === 3) {
+    width = "30%"
+    height = "65%"
+  } else if (elms === 4) {
+    width = "38%"
     height = "50%"
-  } else {
+  } 
+  else {
     width = String(100 / elms) + "%"
   }
 

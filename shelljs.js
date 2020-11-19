@@ -1,6 +1,6 @@
 const shell = require("shelljs");
 const chalk = require('chalk');
-const name = process.argv[2] || 'fix bugs';
+const name = process.argv[2] || 'fix userLeft bugs';
 
 const defaultLog = log => console.log(chalk.blue(`---- ${log}----`));
 const errorLog = log => console.log(chalk.red(`---- ${log}----`));

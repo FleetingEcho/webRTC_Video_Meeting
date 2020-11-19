@@ -1,7 +1,8 @@
 const express=require('express');
-const Connections=require('./db')
+// const Connections=require('./db')
+const {connector}=require('./db')
 const router = express.Router({});
-let connector= new Connections();
+// const connector= new Connections();
 const xss = require("xss")
 
 const filterString = (str) => {

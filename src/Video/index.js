@@ -26,7 +26,6 @@ import {withRouter } from 'react-router';
 import { Row } from 'reactstrap'
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.css'
-import {leaveRoom} from '../Api/request'
 import "./index.css"
 const server_url = "//192.168.0.19:4000"
 
@@ -343,10 +342,9 @@ class Video extends Component {
 
 
 	connectToSocketServer = () => {
-		socket = io.connect(server_url, {  path: 'myscoket',secure: true })
+		socket = io.connect(server_url, {  path: '/myscoket',secure: true })
 
 		socket.on('signal', this.gotMessageFromServer)
-
 		socket.on('connect', () => {
 			socket.emit('join-call', this.props.location.state.roomId)
 			socketId = socket.id
@@ -354,11 +352,6 @@ class Video extends Component {
 			socket.on("shake",this.shakeWindow)
 			socket.on('user-left', (id) => {
 				let video = document.querySelector(`[data-socket="${id}"]`)
-				let _id=this.props.location.state.roomId;
-				let _password=this.props.location.state.password;
-				leaveRoom({_id, _password}).then((res)=>{
-					console.log(res)
-				}).catch((e)=>{console.log(e)});
 				// 已删除
 				if (video !== null) {
 					elms--

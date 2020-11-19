@@ -2,26 +2,36 @@
 
 
 
+### Deployment
+
+Implemented reverse proxy deployment utilizing **Nginx** in the **Vultr** cloud server. 
+
+Address: https://fleetingsound.org
+
+
+
+### Short Description
+
+This is a dynamic Video Meeting & Chat Application built with **React**,**Socket.io** and **Express**.
+
+
+
 ### What is WebRTC
 
 With WebRTC, you can add real-time communication capabilities to your application that works on top of an open standard. It supports video, voice, and generic data to be sent between peers, allowing developers to build powerful voice- and video-communication solutions. The technology is available on all modern browsers as well as on native clients for all major platforms. 
 
 
 
-### Short Description
-
-This is a dynamic Video Meeting & Chat Application built with React,Socket.io and Express.
-
 ### Features
 
-- Creating video meeting rooms for real-time chat
-- Support for sharing screen.
-- Support mute and camera off.
-- Without Database.
-- conversation bubble  and user avatars.
-- Flexible room size setting
-- Sending images/gifs, emoji.
-- Copy room information with one click
+- Creating video meeting rooms for real-time video chat.
+- Supported sending images, emoji and window’s shake in the chat module. 
+- Provided full screen and floating video functions.
+- l Implemented independent controls for video, voice, and screen sharing functions.
+- Without using Database, provide rapid deployment.
+- conversation bubble and user avatars.
+- Provided full device adaptation of user’s interface by utilizing React-strap’s components.
+- Quick copy room information with one click.
 
 
 
@@ -29,6 +39,7 @@ This is a dynamic Video Meeting & Chat Application built with React,Socket.io an
 
 + Sound notification.
 + User-oriented avatar list
++ ...
 
 
 

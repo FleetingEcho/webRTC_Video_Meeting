@@ -1,33 +1,39 @@
 const shell = require("shelljs");
 const chalk = require('chalk');
-const name = process.argv[2] || 'first commit';
+const name = process.argv[2] || 'fix bugs';
 
 const defaultLog = log => console.log(chalk.blue(`---- ${log}----`));
 const errorLog = log => console.log(chalk.red(`---- ${log}----`));
 const successLog = log => console.log(chalk.green(`---- ${log}----`));
 
+
+const shellCommand=(command)=>{
+  return new Promise((resolve,reject)=>{
+    let res= shell.exec(command).code;
+    if(res!==0){ reject(new Error('git command execute error'))}
+    resolve(res)//此时res==0;
+  })
+}
+
 const autoPush = async () => {
     try{
-     await shell.exec(' git remote add origin git@github.com:JakeZT/webRTC_Video_Meeting.git')
+    //  await shell.exec(' git remote add origin git@github.com:JakeZT/webRTC_Video_Meeting.git')
      defaultLog('push start')
-     await shell.exec('git add .')
-     await shell.exec(`git commit -m "${name}"`)
+     await shellCommand('git add .')
+     await shellCommand(`git commit -m "${name}"`)
+     let res= shellCommand('git push origin master'); 
+     return res
     }catch(err){
       errorLog('link error')
       process.exit()
     }
-    let res= shell.exec('git push origin master'); 
-    return res
 }
 
 autoPush().then((res)=>{
-  if(res.code!==0){
-    shell.echo(`error occurs in pushing `) 
-    errorLog(`error occurs`)
-    return
-  }
   successLog('success!'); 
   process.exit();
 }).catch((err)=>{
+  shell.echo(`error occurs in pushing `) 
   errorLog('push error')
+  process.exit()
 })

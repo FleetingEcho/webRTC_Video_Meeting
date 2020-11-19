@@ -8,7 +8,7 @@ const filterString = (str) => {
 	return xss(str)
 }
 
-//加入
+// join room
 router.post('/room', (req,res) => {
 
 let id=filterString(req.body.roomId)
@@ -22,7 +22,7 @@ res.json({
 })
 });
 
-// 离开房间
+// leave room
 router.delete('/room', (req,res) => {
 // console.log(req.body);
 let id=filterString(req.body._id)

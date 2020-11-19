@@ -20,15 +20,23 @@ class Home extends Component {
 
 	handleChange = (e) => this.setState({ room: String(e.target.value).trim() })
 	handleChangeP = (e) => this.setState({ password: String(e.target.value).trim() })
-
+	clearInfo=()=>{
+		this.setState({room:'',password:''},()=>{
+			this.forceUpdate()
+		})
+	}
 
 	join = () => {
 
 		let roomId=this.state.room;
 		let password=this.state.password;
-		if(roomId==='' || password==''){
-			message.error('input cannot be empty')
-			return false;
+		if(!roomId){
+				message.error('roomID cannot be empty!')
+				return false;
+		}
+		if(!password){
+				message.error('password cannot be empty!')
+				return false;
 		}
 				// 路由跳转
 				const info={
@@ -47,17 +55,17 @@ class Home extends Component {
 						}
 						else if(CODE===STATUS.PASSWORD_ERROR){ 
 							message.error(`Room password mismatch`,0.5);
-							this.forceUpdate()
+							this.clearInfo();
 							return;
 						}
 						else if(CODE===STATUS.FULL){ 
 							message.error(`Room full`,0.5);
-							this.forceUpdate()
+							this.clearInfo();
 							return;
 						}
 						else if(CODE===STATUS.ROOM_NOT_EXIST){ 
 							message.error(`Room didn't exist`,0.5);
-							this.forceUpdate()
+							this.clearInfo();
 							return;
 						}
 					})
@@ -78,8 +86,10 @@ class Home extends Component {
 									<p style={{fontSize:'18px'}} >Create or join a Room</p>
 									<Input value={this.state.room} style={{color:'white'}} placeholder="Room ID" onChange={e => this.handleChange(e)} />
 									<Input
+									value={this.state.password}
 									type="password"
 									placeholder="input password"
+									autoComplete="false"
 									  style={{color:'white',marginTop:'20px'}}  onChange={e => this.handleChangeP(e)} />
 									<div>
 									<ButtonAnt type="primary" onClick={this.join} style={{ margin: "20px" }}>Go</ButtonAnt>

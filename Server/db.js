@@ -25,22 +25,22 @@ module.exports=class Connections{
   _access=(id,password)=>{
     // console.log('进入')
     let info=this.connectedRooms[`room${id}`];
-    // 密码正确
+    // password right
     if(info['id']===id && info['password']===password){
-      // 通过
+      // access
       if(info.linkedUsers>=4){
         // console.log(info.linkedUsers)
         return STATUS.FULL;
       }
         return this._goInRoom(id,password);
     }
-    // 密码错误
+    // password error
     else if(info['id']!==id || info['password']!==password){
           return STATUS.PASSWORD_ERROR
     }
   }
   enterRoom=(id,password)=>{
-  // 新房间
+  // new room
   // console.log(this.connectedRooms)
     if(!this.connectedRooms[`room${id}`]){
     let room={
@@ -58,9 +58,7 @@ module.exports=class Connections{
   
   leaveRoom=(id,password)=>{
     if(!id  || !password)return ;
-    // console.log('收到了离开请求')
     if(! this.connectedRooms[`room${id}`]){
-      // let res=`room 不存在`;
       return STATUS.ROOM_NOT_EXIST ;
     }
     let info =this.connectedRooms[`room${id}`];

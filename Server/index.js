@@ -8,7 +8,7 @@ const path = require("path")
 const xss = require("xss")
 const helmet = require('helmet');
 const server = http.createServer(app)
-const io = require('socket.io')(server)
+const io = require('socket.io')(server,{  path: 'myscoket'})
 const indexRouter=require('./router')
 const {connectedRooms,enterRoom,leaveRoom}= require('./db')
 // 解决跨域问题， 但如果带cookie就得另外配置

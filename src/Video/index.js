@@ -17,7 +17,7 @@ import {ShakeOutlined } from '@ant-design/icons';
 import {changeCssVideos, checkMessage,getBase64,scrollToBottom,toggleVideoSize} from '../lib/utils'
 import {MessageBox,MessageBoxLeft,UserContainer,Sender,
 			  SenderLeft,
-	      VideoBox,IconList,MessageContainer,GlobalStyle,ImageBox,BrowserError,ImageBoxLeft} from './style';
+	      VideoBox,IconList,MessageContainer,GlobalStyle,ImageBox,ImageBoxLeft} from './style';
 import chatWallPaper from './icon/chatWallPaper.jpg'
 import { message,Button as ButtonAnt,Image,Input,Upload } from 'antd'
 import 'antd/dist/antd.css'
@@ -90,7 +90,15 @@ class Video extends Component {
 				.then(() => this.videoAvailable = true)
 				.catch(() => this.videoAvailable = false)// 用户不是必须选择允许或拒绝。
 
+				// 临时进行更改：
 			await navigator.mediaDevices.getUserMedia({ audio: true })
+			// await navigator.mediaDevices.getUserMedia({ audio: {
+				// echoCancellation:true,
+				// autoGainControl:false,
+				// googAutoGainControl:false,
+				// noiseSuppression:false
+
+			// } })
 				.then(() => this.audioAvailable = true)
 				.catch(() => this.audioAvailable = false)
 
@@ -195,31 +203,69 @@ class Video extends Component {
 			})
 		})
 	}
+	mergeTracks = (baseStrem, extraStream) => {
+    if (!baseStrem.getAudioTracks().length) {
+        baseStrem.addTrack(extraStream.getAudioTracks()[0])
+        return baseStrem;
+    }
+    const context = new AudioContext();
+    const baseSource = context.createMediaStreamSource(baseStrem);
+    const extraSource = context.createMediaStreamSource(extraStream);
+    const dest = context.createMediaStreamDestination();
+
+    const baseGain = context.createGain();
+    const extraGain = context.createGain();//用户麦克风
+    baseGain.gain.value = 0.8;
+    extraGain.gain.value = 1;
+
+    baseSource.connect(baseGain).connect(dest);
+    extraSource.connect(extraGain).connect(dest);
+
+    return new MediaStream([baseStrem.getVideoTracks()[0], dest.stream.getAudioTracks()[0]]);
+}
+
 	// 获得共享屏幕;
-	getDislayMedia = (event) => {
+	getDisplayMedia = (event) => {
 		if (this.state.screen) {
 			if (navigator.mediaDevices.getDisplayMedia) {
 				let shareWindowUser=this.shareScreen.current.dataset.user;
-				let copy=this.state.flipVideo;
-				copy=shareWindowUser;
-				this.setState({flipVideo:copy},()=>{
-					navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-						.then(this.getDisplayMediaSuccess)
+				let microAudio;//用户麦克风声音
+				// ===========
+				navigator.mediaDevices.getUserMedia({
+					video: true,
+					audio:true,
+					// audio: {
+					// 	autoGainControl:false,
+						// echoCancellation:true,
+					// 	googAutoGainControl:false,
+					// 	noiseSuppression:false
+					// }
+			}).then((audioStream)=>{
+				
+				// var stream = mergeTracks(userStream, audioStream);
+				microAudio=audioStream;
+				console.log(microAudio.getTracks(), audioStream.getTracks());
+			})
+					navigator.mediaDevices.getDisplayMedia({ video: true, 
+						audio:true
+					})
+						.then((stream)=>{
+							this.getDisplayMediaSuccess(stream,microAudio)
+						})
 						.then((stream) => {
-							// this.flipVideoDirection()
 						})
 						.catch((e) => console.log(e))
-
-				})
 			}
 		}
 	}
 
-	getDisplayMediaSuccess = (stream) => {
+	getDisplayMediaSuccess = (stream,microAudio) => {
 		try {
 			window.localStream.getTracks().forEach(track => track.stop())
 		} catch(e) { console.log(e) }
-
+		// console.log(userStream.getTracks(), audioStream.getTracks());
+		//  stream = mergeTracks(userStream, audioStream);
+		stream=this.mergeTracks(stream, microAudio);
 		window.localStream = stream
 		this.localVideoref.current.srcObject = stream
 
@@ -463,6 +509,8 @@ class Video extends Component {
 		oscillator.start()
 		// AudioContext接口的resume（）方法在以前已暂停的音频上下文中恢复时间的进展。
 		ctx.resume()
+		// 临时测试用
+		dst.stream.getAudioTracks()[0].applyConstraints({echoCancellation: false});
 		return Object.assign(dst.stream.getAudioTracks()[0], { enabled: false })
 	}
 
@@ -477,7 +525,7 @@ class Video extends Component {
 	handleVideo = () => this.setState({ video: !this.state.video }, () => this.getUserMedia())
 	handleAudio = () => this.setState({ audio: !this.state.audio }, () => this.getUserMedia())
 	handleScreen = (e) => {
-		this.setState({ screen: !this.state.screen }, (e) => this.getDislayMedia(e))
+		this.setState({ screen: !this.state.screen }, (e) => this.getDisplayMedia(e))
 	}
 
 	// 结束视频

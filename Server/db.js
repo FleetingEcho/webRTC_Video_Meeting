@@ -27,7 +27,7 @@ class Connections{
     // password right
     if(info['id']===id && info['password']===password){
       // access
-      if(info.linkedUsers>=4){
+      if(info.linkedUsers>=6){
         return STATUS.FULL;
       }
         return this._goInRoom(id,password);

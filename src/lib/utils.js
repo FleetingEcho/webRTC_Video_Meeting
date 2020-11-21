@@ -22,6 +22,14 @@
     width = "38%"
     height = "50%"
   } 
+  else if (elms === 5) {
+    width = "30%"
+    height = "65%"
+  } 
+  else if (elms === 6) {
+    width = "38%"
+    height = "50%"
+  } 
   else {
     width = String(100 / elms) + "%"
   }

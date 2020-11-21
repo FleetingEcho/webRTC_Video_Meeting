@@ -13,15 +13,19 @@ import CallEndIcon from '@material-ui/icons/CallEnd'
 import ChatIcon from '@material-ui/icons/Chat'
 import icon1 from './icon/icon1.jpg'
 import icon2 from './icon/icon2.jpg'
+import poster from  './icon/poster.png'
+import poster2 from  './icon/poster2.png'
+import videoCanvas from 'video-canvas'
+// import html2canvas from 'html2canvas'
 import {ShakeOutlined } from '@ant-design/icons';
 import {changeCssVideos, checkMessage,getBase64,scrollToBottom,toggleVideoSize} from '../lib/utils'
 import {MessageBox,MessageBoxLeft,UserContainer,Sender,
 			  SenderLeft,
 	      VideoBox,IconList,MessageContainer,GlobalStyle,ImageBox,ImageBoxLeft} from './style';
 import chatWallPaper from './icon/chatWallPaper.jpg'
-import { message,Button as ButtonAnt,Image,Input,Upload } from 'antd'
+import { message, Modal as AntModal,Button as ButtonAnt,Image,Input,Upload } from 'antd'
 import 'antd/dist/antd.css'
-import { UploadOutlined ,GithubOutlined} from '@ant-design/icons';
+import { UploadOutlined ,CameraOutlined,GithubOutlined} from '@ant-design/icons';
 import {withRouter } from 'react-router';
 import { Row } from 'reactstrap'
 import Modal from 'react-bootstrap/Modal'
@@ -51,6 +55,8 @@ class Video extends Component {
 		this.audioAvailable = false
 
 		this.state = {
+			screenVisible:false,
+			screenData:[],
 			flipList:[],
 			fileList:[],
 			roomId:'',
@@ -186,6 +192,7 @@ class Video extends Component {
 				} catch(e) { console.log(e) }
 
 				let blackSilence = (...args) => new MediaStream([this.black(...args), this.silence()])
+				// let blackSilence = (...args) => new MediaStream([this.silence()])
 				window.localStream = blackSilence()
 				this.localVideoref.current.srcObject = window.localStream
 
@@ -293,7 +300,8 @@ class Video extends Component {
 					tracks.forEach(track => track.stop())
 				} catch(e) { console.log(e) }
 				// 使展示界面变黑，并且静音
-				let blackSilence = (...args) => new MediaStream([this.black(...args), this.silence()])
+				// let blackSilence = (...args) => new MediaStream([this.black(...args), this.silence()])
+				let blackSilence = (...args) => new MediaStream([this.silence()])
 				window.localStream = blackSilence()//return了新的stream
 				this.localVideoref.current.srcObject = window.localStream
 
@@ -433,6 +441,7 @@ class Video extends Component {
 							// 新增video
 							let video = document.createElement('video')
 							video.setAttribute("controls","controls")
+							video.setAttribute("poster",poster2)
 								
 								let css = {minWidth: cssMesure.minWidth, maxHeight:'90%',minHeight: cssMesure.minHeight,
 								margin: "10px",marginBottom:'80px',marginTop:'30px',
@@ -460,6 +469,7 @@ class Video extends Component {
 						connections[socketListId].addStream(window.localStream)
 					} else {
 						let blackSilence = (...args) => new MediaStream([this.black(...args), this.silence()])
+						// let blackSilence = (...args) => new MediaStream([ this.silence()])
 						window.localStream = blackSilence()
 						connections[socketListId].addStream(window.localStream)
 					}
@@ -517,7 +527,10 @@ class Video extends Component {
 	// 黑屏
 	black = ({ width = 640, height = 480 } = {}) => {
 		let canvas = Object.assign(document.createElement("canvas"), { width, height })
+		const ctx=canvas.getContext('2d')
 		canvas.getContext('2d').fillRect(0, 0, width, height)
+		canvas.getContext('2d').fillStyle="#000"
+		// ctx.drawImage(poster2,0,0);
 		let stream = canvas.captureStream()
 		return Object.assign(stream.getVideoTracks()[0], { enabled: false })
 	}
@@ -536,6 +549,44 @@ class Video extends Component {
 		} catch (e) {}
 		window.location.href = "/"
 	}
+	// 截图
+	saveScreen=()=>{
+		// const screen = document.getElementsByClassName("root")[0];
+		const screen = document.querySelectorAll("video");
+		console.log(screen)
+		let update=[];
+		const that=this
+		for(let item of screen){
+			const canvas = videoCanvas(item);
+			// const canvasM=this.mirrorImage(canvas,)
+			const imgUrl = canvas.toDataURL('image/png');
+			update.push(imgUrl)
+		}
+		this.setState({
+			screenData:update
+		},()=>{
+			console.log(this.state.screenData.length)
+			this.setState({screenVisible:true});
+		})
+    // html2canvas(screen).then(canvas => {
+			// const imgUrl = canvas.toDataURL('image/png');
+    // }).catch((err)=>{console.log(err)})
+	}
+	 mirrorImage(ctx, image, x = 0, y = 0, horizontal = false, vertical = false){
+    ctx.save();  // save the current canvas state
+    ctx.setTransform(
+        horizontal ? -1 : 1, 0, // set the direction of x axis
+        0, vertical ? -1 : 1,   // set the direction of y axis
+        x + (horizontal ? image.width : 0), // set the x origin
+        y + (vertical ? image.height : 0)   // set the y origin
+    );
+    return ctx.drawImage(image,0,0);
+    ctx.restore(); // restore the state as it was when this function was called
+}
+
+	// 截图控制
+	handleOk = e => {this.setState({screenVisible: false,screenData:[]})};
+  handleCancel = e => {this.setState({screenVisible: false,screenData:[]})};
 
 	// 对话框发送消息;
 	openChat = () => this.setState({ showModal: true, newmessages: 0 })
@@ -701,9 +752,9 @@ let _fileName=file.name.substr(index+1);
 			)
 		}
 		return (
-		<Fragment>
+		<Fragment >
 			<GlobalStyle></GlobalStyle>
-			<div>
+			<div  className="screenShot">
 				{this.state.askForUsername === true ?
 					<div>
 						<div style={{background: "white",borderRadius:'20px', width: "92%", height: "auto", padding: "20px",
@@ -716,7 +767,8 @@ let _fileName=file.name.substr(index+1);
 						</div>
 						<div style={{ justifyContent: "center", textAlign: "center", paddingTop: "40px" }}>
 							<VideoBox 
-							// id="my-video"
+							// id="my-video123123"
+							// poster={poster2}
 							className="initialVideo"
 							controls
 							onclick={(e)=>toggleVideoSize(e)}
@@ -726,12 +778,45 @@ let _fileName=file.name.substr(index+1);
 					:
 					<div>
 						<IconList  style={{ backgroundColor: "whitesmoke", color: "whitesmoke", textAlign: "center" }}>
-							<IconButton style={{ color: "#424242" }} onClick={this.handleVideo}>
-								{(this.state.video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
-							</IconButton>
 
 							<IconButton style={{ color: "#f44336" }} onClick={this.handleEndCall}>
 								<CallEndIcon />
+							</IconButton>
+							<IconButton style={{  }} onClick={()=>{this.saveScreen()}} >
+							<CameraOutlined />
+							</IconButton>
+				<AntModal
+        title="ScreenShot"
+        centered
+        visible={this.state.screenVisible}
+				okText="ok"
+				cancelText="close"
+        onOk={() =>this.handleOk()}
+        onCancel={() =>this.handleCancel()}
+        width={1050}
+      >
+<div>
+{
+					this.state.screenData.length!==0 ?
+					this.state.screenData.map((item,index)=>{
+					return (
+						<Image
+						key={index}
+					style={{marginRight:'30px',}}
+					height={350}
+					width={300}
+					src={item}
+					alt="video screenshot"
+					      fallback="data:image/png;base64,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"
+					></Image>
+					)})
+					:
+					null
+				}
+</div>
+      </AntModal>
+							<IconButton style={{ color: "#424242" }} onClick={this.handleVideo}>
+								{(this.state.video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
 							</IconButton>
 
 							<IconButton style={{ color: "#424242" }} onClick={this.handleAudio}>
@@ -846,7 +931,7 @@ let _fileName=file.name.substr(index+1);
 								<Input 
 								value={`Room:${this.props.location.state.roomId} Password:${this.props.location.state.originalP}`} 
 								style={{color:'black',width:'40%'}} 
-							
+							// 
 								></Input>
 								<ButtonAnt type="primary" style={{backgroundColor: "#3f51b5",color: "whitesmoke",marginLeft: "20px",
 									marginTop: "10px",width: "120px",fontSize: "10px"
@@ -857,7 +942,7 @@ let _fileName=file.name.substr(index+1);
 								<VideoBox id="my-video"
 								style={{borderRadius:'20px',height:'100%'}}
 								controls
-								poster='./icon/poster.png'
+								poster={poster2}
 								 data-user={this.state.username} ref={this.localVideoref} autoPlay muted ></VideoBox>
 							</Row>
 						</MessageContainer>

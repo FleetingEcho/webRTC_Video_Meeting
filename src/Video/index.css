@@ -17,16 +17,28 @@
 #main > video {
   /* transform: rotateY(180deg); */
   /* height:60vh; */
+
   /* -webkit-transform: scaleX(-1); */
   /* transform: scaleX(-1); */
 
-  /* border-style: solid; */
-  /* border-color: rgb(226, 222, 222); */
+  /* transform: rotateY(180deg); */
+  /* -webkit-transform: rotateY(180deg);    Safari 和 Chrome */
+  /* -moz-transform: rotateY(180deg); */
   border-radius: 26px;
   border: 1px solid  rgb(226, 222, 222);
 }
 #main > video:focus {
   outline:none
+}
+
+.initialVideo {
+  /* -webkit-transform: scaleX(-1);
+  transform: scaleX(-1); */
+  /* transform: rotateY(180deg); */
+}
+#my-video{
+  /* -webkit-transform: scaleX(-1);
+  transform: scaleX(-1); */
 }
 
 /* 观看的当前时间 */
@@ -63,9 +75,7 @@
 .initialVideo::-webkit-media-controls-play-button {
   display: none;
 }
-.initialVideo {
-  /* transform: rotateY(180deg); */
-}
+
 #my-video:focus{
   outline:none
   /* transform: rotateY(180deg); */

@@ -1,6 +1,6 @@
 const shell = require("shelljs");
 const chalk = require('chalk');
-const name = process.argv[2] || 'fix audio problem when sharing screen';
+const name = process.argv[2] || 'add screenshot function';
 
 const defaultLog = log => console.log(chalk.blue(`---- ${log}----`));
 const errorLog = log => console.log(chalk.red(`---- ${log}----`));

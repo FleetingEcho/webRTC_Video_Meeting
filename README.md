@@ -79,17 +79,15 @@ With WebRTC, you can add real-time communication capabilities to your applicatio
 
 + User Avatar
 
-  
-  
-  ![Snipaste_2020-12-02_19-15-12](E:\test\chatroom高级版\Github版VideoMeeting\README.assets\Snipaste_2020-12-02_19-15-12.png)
+  <img src="README.assets/Snipaste_2020-12-02_19-15-12.png" alt="Snipaste_2020-12-02_19-15-12" style="zoom:200%;" />
 
 
 
 + Video Meeting Room
 
-  ![Snipaste_2020-12-02_19-11-11](E:\test\chatroom高级版\Github版VideoMeeting\README.assets\Snipaste_2020-12-02_19-11-11.png)
-
-​                                           <img src="E:\test\chatroom高级版\Github版VideoMeeting\README.assets\WeChat Image_20201202191803.jpg" alt="WeChat Image_20201202191803" width="50%" height='700px'/>
+  ![Snipaste_2020-12-02_19-11-11](README.assets/Snipaste_2020-12-02_19-11-11.png)
+  
+  <img src="README.assets/WeChat Image_20201202191803.jpg" alt="WeChat Image_20201202191803"  />
 
 + Screen Share
 

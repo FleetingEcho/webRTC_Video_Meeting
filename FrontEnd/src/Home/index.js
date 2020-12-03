@@ -54,7 +54,7 @@ class Home extends Component {
 							return;
 						}
 						else if(CODE===STATUS.PASSWORD_ERROR){ 
-							message.error(`Room password mismatch`,0.5);
+							message.error(`Room already exists,but password mismatch`,0.8);
 							this.clearInfo();
 							return;
 						}

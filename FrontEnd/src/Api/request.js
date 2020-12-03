@@ -23,3 +23,13 @@ export const updateRoomSocket = (params) => {
     data:params
   })
 }
+
+
+// 查看头像占用情况
+export const getIconList = (params) => {
+  return axios.request({
+    url:  '/list',
+    method: 'post',
+    data:params
+  })
+}

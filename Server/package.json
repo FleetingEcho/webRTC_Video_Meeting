@@ -1,0 +1,31 @@
+{
+  "name": "BackEnd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon index.js",
+    "start": "set PORT=8080 && react-scripts start",
+    "dev": "concurrently \"npm run serve\" \"npm run start --prefix ..\\Frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "compression": "^1.7.4",
+    "concurrently": "^5.3.0",
+    "connect-history-api-fallback": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmer": "^0.0.1",
+    "helmet": "^4.2.0",
+    "http": "^0.0.1-security",
+    "log-symbols": "^4.0.0",
+    "nodemon": "^2.0.6",
+    "shelljs": "^0.8.4",
+    "socket.io": "2.3.0",
+    "xss": "^1.0.8"
+  }
+}

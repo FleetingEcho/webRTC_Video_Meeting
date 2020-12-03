@@ -55,6 +55,7 @@ class Connections{
   }
   
   leaveRoom=(id)=>{
+    console.log(this.connectedRooms)
     if(!id )return ;
     if(! this.connectedRooms[`room${id}`]){
       return STATUS.ROOM_NOT_EXIST ;
@@ -67,6 +68,7 @@ class Connections{
     }
     else{
         info['linkedUsers']-=1;
+        console.log(this.connectedRooms)
        return STATUS.LEAVE;
       }
   }

@@ -1,4 +1,4 @@
- export const changeCssVideos = (main,elms) => {
+export const changeCssVideos = (main,elms) => {
   let widthMain = main.offsetWidth
   let minWidth = "30%";
   let maxHeight='90%';

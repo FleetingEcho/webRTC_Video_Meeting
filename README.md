@@ -6,7 +6,7 @@
 
 Implemented reverse proxy deployment utilizing **Nginx** in the **Vultr** cloud server. 
 
-Address: https://fleetingsound.org
+Address: https://www.fleetingsound.org
 
 
 
@@ -25,21 +25,19 @@ With WebRTC, you can add real-time communication capabilities to your applicatio
 ### Features
 
 - Creating video meeting rooms for real-time video chat.
+- The message list is **cleared immediately** after all users leave chatroom, protected user privacy.
+- Complete authorization detection.
+- Support one-click **screenshot** function
+- Unique room name & password & user avatar. 
 - Supported sending images, emoji and window’s shake in the chat module. 
 - Provided full screen and floating video functions.
-- l Implemented independent controls for video, voice, and screen sharing functions.
+- Implemented independent controls for video, voice, and screen sharing functions.
 - Without using Database, provide rapid deployment.
-- conversation bubble and user avatars.
+- conversation bubble and  unique user avatar.
 - Provided full device adaptation of user’s interface by utilizing React-strap’s components.
 - Quick copy room information with one click.
 
 
-
-### Todo List...
-
-+ Sound notification.
-+ User-oriented avatar list
-+ ...
 
 
 
@@ -58,10 +56,15 @@ With WebRTC, you can add real-time communication capabilities to your applicatio
 
 ```js
 //1. install the depencies
+> cd ./FrontEnd 
+> yarn
+
+> cd ./Server
 > yarn
 
 //2. Run 
->npm run dev
+>cd ./Server
+>npm run dev  
 ```
 
 
@@ -74,11 +77,19 @@ With WebRTC, you can add real-time communication capabilities to your applicatio
 
   ![Snipaste_2020-11-13_19-02-34](README.assets/Snipaste_2020-11-13_19-02-34.png)
 
++ User Avatar
+
+  
+  
+  ![Snipaste_2020-12-02_19-15-12](E:\test\chatroom高级版\Github版VideoMeeting\README.assets\Snipaste_2020-12-02_19-15-12.png)
+
+
+
 + Video Meeting Room
 
-  ![Snipaste_2020-11-13_19-05-08](README.assets/Snipaste_2020-11-13_19-05-08.png)
+  ![Snipaste_2020-12-02_19-11-11](E:\test\chatroom高级版\Github版VideoMeeting\README.assets\Snipaste_2020-12-02_19-11-11.png)
 
-
+​                                           <img src="E:\test\chatroom高级版\Github版VideoMeeting\README.assets\WeChat Image_20201202191803.jpg" alt="WeChat Image_20201202191803" width="50%" height='700px'/>
 
 + Screen Share
 

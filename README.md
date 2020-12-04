@@ -25,19 +25,17 @@ With WebRTC, you can add real-time communication capabilities to your applicatio
 ### Features
 
 - Creating video meeting rooms for real-time video chat.
-- The message list is **cleared immediately** after all users leave chatroom, protected user privacy.
+-  User information list.
+- The messages list is **cleared immediately** after all users leave chatroom, protected user privacy.
 - Complete authorization detection.
 - Support one-click **screenshot** function
 - Unique room name & password & user avatar. 
 - Supported sending images, emoji and window’s shake in the chat module. 
 - Provided full screen and floating video functions.
 - Implemented independent controls for video, voice, and screen sharing functions.
-- Without using Database, provide rapid deployment.
+- Lightweight deployment.
 - conversation bubble and  unique user avatar.
 - Provided full device adaptation of user’s interface by utilizing React-strap’s components.
-- Quick copy room information with one click.
-
-
 
 
 

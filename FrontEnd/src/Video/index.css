@@ -41,6 +41,8 @@
 #main >video::-webkit-media-controls-play-button {
     display: none;
 }
+::-webkit-scrollbar {display:none}
+
 .initialVideo::-webkit-media-controls-play-button {
   display: none;
 }

@@ -78,7 +78,7 @@ class Home extends Component {
 				<GlobalStyle></GlobalStyle>
 							<CenterBox >
 								<div>
-									<Title >Video Meeting</Title>
+									<Title >Online Meeting</Title>
 									<p style={{ fontWeight: "180" ,color:'#5feeff', fontSize:'18px',fontStyle:'italic'}}>Free video meeting with WebRTC Technology</p>
 								</div>
 
@@ -90,7 +90,9 @@ class Home extends Component {
 									type="password"
 									placeholder="input password"
 									autoComplete="false"
-									  style={{color:'white',marginTop:'20px'}}  onChange={e => this.handleChangeP(e)} />
+									style={{color:'white',marginTop:'20px'}}  
+									onChange={e => this.handleChangeP(e)} 
+										/>
 									<div>
 									<ButtonAnt type="primary" onClick={this.join} style={{ margin: "20px" }}>Go</ButtonAnt>
 									</div>

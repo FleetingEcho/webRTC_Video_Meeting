@@ -11,7 +11,6 @@ const server = http.createServer(app)
 const {connector}=require('./db')
 const {iconList}=require('./iconList')
 const io = require('socket.io')(server,{path:'/mysocket'})
-// const io = require('socket.io')(server)
 const indexRouter=require('./router')
 const compression=require('compression')
 // const history = require('connect-history-api-fallback');
@@ -39,7 +38,7 @@ app.use(indexRouter);
 // }
 app.set('port', (process.env.PORT || 8080))
 app.get('/',(req,res)=>{
-	// res.sendFile(path.join(__dirname,"build","index.html"))
+	res.sendFile(path.join(__dirname,"build","index.html"))
 })
 app.get("*",(req,res)=>{
 	res.sendFile(path.join(__dirname,"Error","error.html"))
@@ -61,15 +60,14 @@ var timeOnline = {}
 */
 io.on('connection', (socket) => {
 
-	socket.on('join-call', (path,userIcon) => {
-		console.log('path is '+path)
+	socket.on('join-call', (path,userIcon,username) => {
 		if(connections[path] === undefined){
 			connections[path] = []
 		}
 		connections[path].push(socket.id)
 		// add icon
-		iconList.addIcon(path,userIcon,socket.id);
-		console.log(iconList.listAll())
+		iconList.addIcon(path,userIcon,socket.id,username);
+		// console.log(iconList.listAll())
 
 		timeOnline[socket.id] = new Date()
 
@@ -84,7 +82,7 @@ io.on('connection', (socket) => {
 			}
 		}
 
-		console.log(path, connections[path])
+		// console.log(path, connections[path])
 	})
 
 	socket.on('signal', (toId, message) => {
@@ -153,11 +151,10 @@ io.on('connection', (socket) => {
 					var index = connections[key].indexOf(socket.id)
 					connections[key].splice(index, 1)
 
-					console.log(logSymbols.info,key, socket.id, Math.ceil(diffTime / 1000))
+					// console.log(logSymbols.info,key, socket.id, Math.ceil(diffTime / 1000))
 					// important;
 					connector.leaveRoom(key);
 					iconList.delIcon(key,socket.id);
-					console.log(111 + key + socket.id);
 					if(connections[key].length === 0){
 						delete connections[key]
 						delete messages[key]

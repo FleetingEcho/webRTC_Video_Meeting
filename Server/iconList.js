@@ -1,11 +1,3 @@
-/* 
-{
-iconList:{
-room1: []
-}
-}
-*/
-
 class IconList{
   constructor(){
     this.iconList={};
@@ -13,20 +5,20 @@ class IconList{
   /* 
   {
     room1:{
-      id1: icon,
-      id2:icon
+      id1: [icon,username],
+      id2:[icon,username]
     }
   }
   */
   // 增加
-  addIcon=(id,icon,socketId)=>{
+  addIcon=(id,icon,socketId,username)=>{
     if(this.iconList[`room${id}`]){
-      this.iconList[`room${id}`][socketId]=icon
+      this.iconList[`room${id}`][socketId]=[icon,username]
     }
     else{
       // 初始化
       this.iconList[`room${id}`]={};
-      this.iconList[`room${id}`][socketId]=icon;
+      this.iconList[`room${id}`][socketId]=[icon,username];
     }
   }
 
